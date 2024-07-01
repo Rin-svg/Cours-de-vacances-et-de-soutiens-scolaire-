@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+<title>Form Submit to Send Email</title>
+<link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+<?php
+if(!empty($_POST["send"])) {
+	$userName = $_POST["userName"];
+  $userEmail = $_POST["userEmail"];
+	$userPhone = $_POST["userPhone"];
+	$userMessage = $_POST["userMessage"];
+	$toEmail = "duvaltchouamitokeu@gmail.com";
+  
+	$mailHeaders = "Name: " . $userName .
+	"\r\n Email: ". $userEmail  . 
+	"\r\n Phone: ". $userPhone  . 
+	"\r\n Message: " . $userMessage . "\r\n";
+
+	if(mail($toEmail, $userName, $mailHeaders)) {
+	    $message = "Votre Demande a été reçue avec Succes! ";
+	}
+}
+?>
+
+<div class="form-container">
+  <form method="post" name="contactFormEmail">
+    <div class="input-row">
+      <label>Nom <em>*</em></label> 
+      <input type="text" name="userName" required> 
+    </div>
+    <div class="input-row">
+      <label>Email <em>*</em></label> 
+      <input type="email" name="userEmail" required> 
+    </div>
+    <div class="input-row">
+      <label>Téléphone <em>*</em></label> 
+      <input type="text" name="userPhone" required>
+    </div>
+    <div class="input-row">
+      <label>Quelle activité souhaiterai faire votre enfant ?<em>*</em></label> 
+      <textarea name="userMessage" required></textarea>
+    </div>
+    <div class="input-row">
+      <input type="submit" name="send" value="Envoyer">
+      <?php if (!empty($message)){ ?>
+      <div class='success'>
+        <strong><?php if echo $message; ?></strong>
+      </div>
+      <?php } ?>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
+
+
